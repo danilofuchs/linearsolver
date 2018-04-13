@@ -9,6 +9,7 @@ app.setPadding([5,5])
 nMax = 4;
 n = 2
 
+#batata
 def testeCallback() :
     app.infoBox("Teste", "Você clicou em teste");
     
