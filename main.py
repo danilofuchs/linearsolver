@@ -8,12 +8,22 @@ app.setPadding([5,5])
 
 nMax = 4;
 n = 2
+res = 1
 
-#batata
-def testeCallback() :
-    app.infoBox("Teste", "Você clicou em teste");
-    
+def getMatrix() :
+    matrix = [[0 for x in range(n+1)] for y in range(n)] 
+    for i in range (0, n) :
+        for j in range (0, n+1) :
+            title = 'a'+str(i)+str(j)
+            try :
+                matrix[i][j] = int(app.getEntry(title))
+            except TypeError :
+                matrix[i][j] = 0
+    return matrix
+
 def solve(button) :
+    matrix = getMatrix()
+
     if button == 'Gauss' :
         app.infoBox("Gauss", "Você clicou em Gauss");
     elif button == 'Pivoteamento Completo' :
@@ -31,11 +41,13 @@ def generateMatrix() :
             
             app.setEntryDefault(title, '0')
         
-def updateMatrix() :
+def updateParams() :
     try :
         n = int(app.getSpinBox('n'))
+        res = int(app.getSpinBox('resolucao'))
     except :
         n = 2
+        res = 1
     
     for i in range (0, nMax) :
         for j in range (0, nMax+1) :
@@ -51,11 +63,12 @@ def updateMatrix() :
             #app.setEntryInvalid(title)
 
 generateMatrix()
-updateMatrix()
+updateParams()
 
 app.startLabelFrame("Parâmetros", colspan=2)
 app.addSpinBoxRange("n", fromVal=2,toVal=4);
-app.addButton("OK", updateMatrix)
+app.addLabelSpinBoxRange("Resolucao", fromVal=1, toVal=10)
+app.addButton("OK", updateParams)
 app.stopLabelFrame()
 
 app.startLabelFrame("Solução", colspan=2)
