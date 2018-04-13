@@ -1,5 +1,5 @@
 from appJar import gui
-
+from solver import gaussElimination
 
     
 
@@ -25,7 +25,11 @@ def solve(button) :
     matrix = getMatrix()
 
     if button == 'Gauss' :
-        app.infoBox("Gauss", "Você clicou em Gauss");
+        result = gaussElimination(matrix,n, res)
+        result = ''
+        for i in range (0, n) :
+            result += 'x' + str(i) + ' = ' + str(result[i]) + '\n' 
+        app.infoBox("Gauss - Resultados", result);
     elif button == 'Pivoteamento Completo' :
         app.infoBox("Pivoteamento Completo", "Você clicou em Pivoteamento Completo");
     elif button == 'L.U.' :

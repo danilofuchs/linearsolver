@@ -102,3 +102,5 @@ ENV/
 
 #VSCode
 .code-workspace
+linearsolver.code-workspace
+.vscode/
