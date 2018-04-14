@@ -11,5 +11,5 @@ def multLine(line, m, nTerms, nDigits):
     return line
 
 def gaussElimination(matrix, nVar, nDigits):
-    
+    results = 1
     return(results)
