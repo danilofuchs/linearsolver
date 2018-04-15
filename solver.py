@@ -37,15 +37,15 @@ def retroDistribution(matrix: np.ndarray) :
     return result
 
 def gaussElimination(matrix: np.ndarray, nDigits):
-    nVar = matrix.shape[0]
+    nVar = matrix.shape[0])
 
     for j in range(nVar - 1):
-        for i in range(nVar - 1, 0): #da coluna 
+        for i in range(nVar - 1, j, -1):
             m = -matrix[i][j]/matrix[j][j]
-            a[i][j] = 0
-            for k in range(j + 1, nVar):
+            matrix[i][j] = 0
+            for k in range(j + 1, nVar + 1):
                 matrix[i][k] += m * matrix[j][k]
-                
+        matrix = matrix.round(nDigits)   
     return matrix
 
 
@@ -123,4 +123,5 @@ def gaussSeidel(matrix: np.ndarray, initial: np.ndarray, maxErr10, nDigits) :
 
     return x0
 
-
+matriz = np.array([[5.3, 2, 1, 9], [8, 5, 0, 7], [1, 2, 3, 1]], np.float)
+print(retroDistribution(gaussElimination(matriz, 2)))
