@@ -12,22 +12,29 @@ def swapLines(matrix: np.ndarray, lineindex1, lineIndex2) :
 
 def retroDistribution(matrix: np.ndarray) :
     nVar = matrix.shape[0]
+    for n in range(nVar) :
+        for i in range(nVar) : #para cada linha
+            numCoefsLine = 0
+            lastCoef = (-1,-1)
+            for j in range(nVar) : #para cada item da linha
+                if matrix[i][j] != 0 : #se acha um coeficiente != 0
+                    numCoefsLine += 1
+                    lastCoef = (i,j)
+            if numCoefsLine == 1 : #se só tem 1 coeficiente na linha
+                matrix[i] = multLine(matrix[i], (1/matrix[lastCoef]))
+                print(matrix)
+                for x in range (nVar) :
+                    if x != i :
+                        matrix[x] = sumLines(matrix[x], multLine(matrix[i], -matrix[x][lastCoef[1]]))
+                        print(matrix)
 
-    for i in range(nVar) : #para cada linha
-        numCoefsLine = 0
-        lastCoef = (-1,-1)
-        for j in range(nVar) : #para cada item da linha
+    result = np.array([0 for x in range(nVar)], np.float)
+    for i in range(nVar) :
+        for j in range(nVar) :
             if matrix[i][j] != 0 : #se acha um coeficiente != 0
-                numCoefsLine += 1
-                lastCoef = (i,j)
-        if numCoefsLine == 1 : #se só tem 1 coeficiente na linha
-            multLine(matrix[i], (1/matrix[lastCoef[0]][lastCoef[1]]))
-            for x in range (nVar) :
-                if x != i :
-                    matrix[x] = sumLines(matrix[x], multLine(matrix[i], -matrix[x][lastCoef[1]]))
+                result[j] = matrix[i][nVar]
 
-
-    return np.array(matrix[:, nVar])
+    return result
 
 def gaussElimination(matrix: np.ndarray, nDigits):
     #results = 1
