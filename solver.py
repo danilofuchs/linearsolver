@@ -1,19 +1,20 @@
-def sumLines(lineA, lineB, nTerms, nDigits):
-    for i in range(nTerms):
-        lineA[i] += lineB[i]
-        round(lineA[i], nDigits)
-    return lineA
+import numpy as np
 
-def multLine(line, mult, nTerms, nDigits):
-    for i in range(nTerms):
-        line[i] *= mult
-        round(line[i], nDigits)
-    return line
+def sumLines(lineA: np.ndarray, lineB: np.ndarray):
+    return lineA + lineB
 
-def gaussElimination(matrix, nVar, nDigits):
-    results = 1
+def multLine(line: np.ndarray, mult):
+    return line.__mul__(mult)
+
+def gaussElimination(matrix: np.ndarray, nDigits):
+    #results = 1
+    #matrix = np.array(matrix)
+    nVar = matrix.shape[0]
     for j in range((nVar - 1), 0, -1): #das colunas (nVar-1) ate 0
         for i in range(nVar): #das linhas 0 ate nVar
             mult = matrix[i][j] / matrix[j][j] # mult = matriz[nvar-1][]/matriz
-            multLine(matrix[i], mult, len(matrix[i]), nDigits);
-    return(results)
+            matrix[i] = multLine(matrix[i], mult);
+            if (nDigits >= 0) :
+                matrix.round(nDigits)
+            print(matrix)
+    return [row[nVar] for row in matrix]

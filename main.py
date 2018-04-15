@@ -1,6 +1,6 @@
 from appJar import gui
+import numpy as np
 from solver import gaussElimination
-
     
 app = gui("Linear Solver")
 app.setPadding([5,5])
@@ -44,7 +44,8 @@ def setParams(**kwargs) :
 
 def getMatrix() :
     n = getParams()['n']
-    matrix = [[0 for x in range(n+1)] for y in range(n)] 
+    matrix = np.array([[0 for x in range(n+1)] for y in range(n)])
+    #matrix = [[0 for x in range(n+1)] for y in range(n)] 
     for i in range (0, n) :
         for j in range (0, n+1) :
             title = 'a'+str(i)+str(j)
@@ -52,6 +53,7 @@ def getMatrix() :
                 matrix[i][j] = int(app.getEntry(title))
             except TypeError :
                 matrix[i][j] = 0
+    print(matrix)
     return matrix
 
 def solve(button) :
@@ -61,7 +63,8 @@ def solve(button) :
     method = app.getOptionBox('spinboxMethods')
 
     if method == 'Gauss' :
-        result = gaussElimination(matrix, n, res)
+        result = gaussElimination(matrix, res)
+        #print(result)
         for i in range (0, n) :
             app.setEntry('resultX' + str(i), str(result[i]));
             app.setEntryBg('resultX' + str(i), 'yellow')
@@ -139,7 +142,7 @@ app.addLabel('Método', column=0, row=3);
 app.addOptionBox('spinboxMethods', ['Gauss', 'Pivoteamento Completo', 'L.U.', 'Jacobi'], column=1, row=3)
 app.setOptionBoxChangeFunction('spinboxMethods', updateParams)
 
-app.addLabel('Resolução (casas decimais)', column=0, row=1);
+app.addLabel('Casas decimais (-1 = todas disp.)', column=0, row=1);
 app.addSpinBoxRange('spinboxRes', fromVal=-1, toVal=10, column=1, row=1)
 app.setSpinBoxChangeFunction('spinboxRes', updateParams)
 
