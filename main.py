@@ -1,6 +1,6 @@
 from appJar import gui
 import numpy as np
-from solver import gaussElimination
+from solver import gaussElimination, luDecomposition
     
 app = gui("Linear Solver")
 app.setPadding([5,5])
@@ -53,7 +53,6 @@ def getMatrix() :
                 matrix[i][j] = int(app.getEntry(title))
             except TypeError :
                 matrix[i][j] = 0
-    print(matrix)
     return matrix
 
 def solve(button) :
@@ -71,7 +70,11 @@ def solve(button) :
     elif method == 'Pivoteamento Completo' :
         app.infoBox("Pivoteamento Completo", "Você clicou em Pivoteamento Completo");
     elif method == 'L.U.' :
-        app.infoBox("L.U.", "Você clicou em L.U.");
+        result = luDecomposition(matrix, res)
+        #print(result)
+        for i in range (0, n) :
+            app.setEntry('resultX' + str(i), str(result[i]));
+            app.setEntryBg('resultX' + str(i), 'yellow')
     elif method == 'Jacobi' :
         app.infoBox("Jacobi", "Você clicou em Jacobi");
 
