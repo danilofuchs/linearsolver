@@ -10,7 +10,7 @@ def swapLines(matrix: np.ndarray, lineindex1, lineIndex2) :
     matrix[[lineindex1,lineIndex2]] = matrix[[lineIndex2,lineindex1]]
     return matrix
 
-def retroDistribution(matrix: np.ndarray) :
+def retroDistribution(matrix: np.ndarray, nDigits) :
     nVar = matrix.shape[0]
     for n in range(nVar) :
         for i in range(nVar) : #para cada linha
@@ -22,11 +22,11 @@ def retroDistribution(matrix: np.ndarray) :
                     lastCoef = (i,j)
             if numCoefsLine == 1 : #se só tem 1 coeficiente na linha
                 matrix[i] = multLine(matrix[i], (1/matrix[lastCoef]))
-                print(matrix)
                 for x in range (nVar) :
                     if x != i :
                         matrix[x] = sumLines(matrix[x], multLine(matrix[i], -matrix[x][lastCoef[1]]))
-                        print(matrix)
+                        if nDigits >= 0 :
+                            matrix = matrix.round(nDigits)
 
     result = np.array([0 for x in range(nVar)], np.float)
     for i in range(nVar) :
@@ -37,7 +37,7 @@ def retroDistribution(matrix: np.ndarray) :
     return result
 
 def gaussElimination(matrix: np.ndarray, nDigits):
-    nVar = matrix.shape[0])
+    nVar = matrix.shape[0]
 
     for j in range(nVar - 1):
         for i in range(nVar - 1, j, -1):
@@ -45,8 +45,10 @@ def gaussElimination(matrix: np.ndarray, nDigits):
             matrix[i][j] = 0
             for k in range(j + 1, nVar + 1):
                 matrix[i][k] += m * matrix[j][k]
-        matrix = matrix.round(nDigits)   
-    return matrix
+        if nDigits >= 0 :
+            matrix = matrix.round(nDigits)
+
+    return retroDistribution(matrix, nDigits)
 
 
 def luDecomposition(matrix: np.ndarray, nDigits) :
@@ -123,5 +125,5 @@ def gaussSeidel(matrix: np.ndarray, initial: np.ndarray, maxErr10, nDigits) :
 
     return x0
 
-matriz = np.array([[5.3, 2, 1, 9], [8, 5, 0, 7], [1, 2, 3, 1]], np.float)
-print(retroDistribution(gaussElimination(matriz, 2)))
+matriz = np.array([[5.3, 2, 1, 9], [8, 5, 8, 7], [1, 2, 3, 1]], np.float)
+print(gaussElimination(matriz, 2))
