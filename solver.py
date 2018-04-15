@@ -182,19 +182,19 @@ def gaussSeidel(matrix: np.ndarray, initial: np.ndarray, maxErr10, nDigits) :
     return x0
 
 matriz1 = [[, , , ,],
-          [, , , ,],
-          [, , , ,],
-          [, , , ,]]
+           [, , , ,],
+           [, , , ,],
+           [, , , ,]]
 
 matriz2 = [[, , , ,],
-          [, , , ,],
-          [, , , ,],
-          [, , , ,]]
+           [, , , ,],
+           [, , , ,],
+           [, , , ,]]
 
 matriz3 = [[, , , ,],
-          [, , , ,],
-          [, , , ,],
-          [, , , ,]]
+           [, , , ,],
+           [, , , ,],
+           [, , , ,]]
 
 print(gaussElimination(matriz1, 1))
 print(gaussEliminationPivot(matriz2, 1))
