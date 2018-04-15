@@ -181,32 +181,21 @@ def gaussSeidel(matrix: np.ndarray, initial: np.ndarray, maxErr10, nDigits) :
 
     return x0
 
-matriz = np.array(
-    [
-    [-60, 70, -8, 9, 10],
-    [10, 12, -22, 5, -44],
-    [-16, 17, -18, 0, -200],
-    [110, -12, 13, -265, 150]], np.float)
-print(gaussEliminationPivot(matriz, 1))
+matriz1 = [[, , , ,],
+          [, , , ,],
+          [, , , ,],
+          [, , , ,]]
 
-matriz = np.array(
-    [[3.12, -4.32,5.71,8.68,15.85],
-    [37.43,17.8,-15.57,-59.67,-8.13],
-    [12.16,-211.68,-25.35,42.17,-70.31],
-    [12.85,-34.18,-13.44,61.54,-301.12]], np.float)
-print(gaussElimination(matriz, 2))
-#print(gauss(matriz, -1))
+matriz2 = [[, , , ,],
+          [, , , ,],
+          [, , , ,],
+          [, , , ,]]
 
-matriz = np.array(
-    [[1, 0, 0, 0, -44],
-    [-6, 1, 0, 0, 10],
-    [11, -1.01, 1, 0, 150],
-    [-1.6, 0.25, -0.16, 1, -200]], np.float)
-print(retroDistribution(matriz, 2))
+matriz3 = [[, , , ,],
+          [, , , ,],
+          [, , , ,],
+          [, , , ,]]
 
-matriz = np.array(
-    [[10, 12, -22, 5, -44],
-    [0, 142, -140, 39, -254],
-    [0, 0, 113.6, -29.61, 377.46],
-    [0, 0, 0, 183.51, -146.51]], np.float)
-print(retroDistribution(matriz, 2))
+print(gaussElimination(matriz1, 1))
+print(gaussEliminationPivot(matriz2, 1))
+print(gaussElimination(matriz3, 1))
