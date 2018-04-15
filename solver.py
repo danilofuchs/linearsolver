@@ -50,6 +50,26 @@ def gaussElimination(matrix: np.ndarray, nDigits):
 
     return retroDistribution(matrix, nDigits)
 
+def gaussEliminationPivot(matrix: np.ndarray, nDigits):
+    nVar = matrix.shape[0]
+
+    maxCoef = (0, 0)
+
+    for n in range(nVar) :
+        for i in range(nVar) :
+            for j in range(nVar) :
+                if np.abs(matrix[i][j]) > matrix[maxCoef] :
+                    maxCoef = (i, j)
+
+        for i in range(nVar) :
+            if i != maxCoef[0] :
+                m = - matrix[i][maxCoef[1]] / matrix[maxCoef]
+                matrix[i] = sumLines(matrix[i], multLine(matrix[maxCoef[0]], m))
+                if nDigits >= 0 :
+                    matrix = matrix.round(nDigits)
+
+    return retroDistribution(matrix, nDigits)
+
 
 def luDecomposition(matrix: np.ndarray, nDigits) :
     nVar = matrix.shape[0] #numero de linhas da matriz
@@ -125,5 +145,5 @@ def gaussSeidel(matrix: np.ndarray, initial: np.ndarray, maxErr10, nDigits) :
 
     return x0
 
-matriz = np.array([[5.3, 2, 1, 9], [8, 5, 8, 7], [1, 2, 3, 1]], np.float)
-print(gaussElimination(matriz, 2))
+matriz = np.array([[5.14, 2.6, 0, 8],[5, 6, 0, 2],[1, 2, 3, 1]], np.float)
+print(gaussEliminationPivot(matriz, -1))
