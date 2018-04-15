@@ -1,6 +1,6 @@
 from appJar import gui
 import numpy as np
-from solver import gaussElimination, luDecomposition
+from solver import gaussElimination, luDecomposition, jacobi
     
 app = gui("Linear Solver")
 app.setPadding([5,5])
@@ -76,7 +76,13 @@ def solve(button) :
             app.setEntry('resultX' + str(i), str(result[i]));
             app.setEntryBg('resultX' + str(i), 'yellow')
     elif method == 'Jacobi' :
-        app.infoBox("Jacobi", "Você clicou em Jacobi");
+        result = jacobi(matrix, res)
+        #print(result)
+        for i in range (0, n) :
+            app.setEntry('resultX' + str(i), str(result[i]));
+            app.setEntryBg('resultX' + str(i), 'yellow')
+    elif method == 'Gauss-Seidel' :
+        app.infoBox("Gauss-Seidel", "Você clicou em Gauss-Seidel");
 
 def generateMatrix() :  
     for i in range (0, nMax) :
@@ -142,7 +148,7 @@ app.addSpinBoxRange('spinboxN', fromVal=2,toVal=4, column=1, row=0);
 app.setSpinBoxChangeFunction('spinboxN', updateParams)
 
 app.addLabel('Método', column=0, row=3);
-app.addOptionBox('spinboxMethods', ['Gauss', 'Pivoteamento Completo', 'L.U.', 'Jacobi'], column=1, row=3)
+app.addOptionBox('spinboxMethods', ['Gauss', 'Pivoteamento Completo', 'L.U.', 'Jacobi', 'Gauss-Seidel'], column=1, row=3)
 app.setOptionBoxChangeFunction('spinboxMethods', updateParams)
 
 app.addLabel('Casas decimais (-1 = todas disp.)', column=0, row=1);
