@@ -37,24 +37,22 @@ def retroDistribution(matrix: np.ndarray) :
     return result
 
 def gaussElimination(matrix: np.ndarray, nDigits):
-    #results = 1
-    #matrix = np.array(matrix)
-    nVar = matrix.shape[0] #numero de linhas da matriz
-    for j in range((nVar - 1), 0, -1): #das colunas (nVar-1) ate 0
-        for i in range(nVar): #das linhas 0 ate nVar
-            mult = matrix[i][j] / matrix[j][j] # mult = matriz[nvar-1][]/matriz
-            matrix[i] = multLine(matrix[i], mult);
-            if (nDigits >= 0) :
-                matrix.round(nDigits)
-            print(matrix)
-    return retroDistribution(matrix)
+    nVar = matrix.shape[0]
+
+    for j in range(nVar - 1):
+        for i in range(nVar - 1, 0): #da coluna 
+            m = -matrix[i][j]/matrix[j][j]
+            a[i][j] = 0
+            for k in range(j + 1, nVar):
+                matrix[i][k] += m * matrix[j][k]
+                
+    return matrix
+
 
 def luDecomposition(matrix: np.ndarray, nDigits) :
     nVar = matrix.shape[0] #numero de linhas da matriz
     coefMatrix = np.delete(matrix, nVar, 1)
-    bMatrix = np.array(matrix[:, nVar])
-
-    
+    bMatrix = np.array(matrix[:, nVar])    
 
     print(coefMatrix)
     print(bMatrix)
