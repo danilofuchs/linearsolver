@@ -95,4 +95,34 @@ def jacobi(matrix: np.ndarray, initial: np.ndarray, maxErr10, nDigits) :
 
     return x0
 
+def gaussSeidel(matrix: np.ndarray, initial: np.ndarray, maxErr10, nDigits) :
+    nVar = matrix.shape[0] 
+
+    x0 = np.array(initial, float) #valor inicial
+    x1 = x0.copy()
+    err = np.Infinity
+    while err > pow(10, maxErr10) : #criterio de parada
+        maxDiff = 0
+        for n in range(nVar) :
+            #termo independente
+            tempSum = matrix[n][nVar] 
+            
+            for j in range(nVar) :
+                if j != n :
+                    #faz uma subtracao dos outros coeficientes multiplicados por seus valores antigos
+                    tempSum += (- matrix[n][j])*(x1[j])
+            #divide esta soma pelo proprio coeficiente
+            x1[n] = tempSum / matrix[n][n]
+            
+
+            diff = np.abs(x1[n]-x0[n])
+            if diff > maxDiff :
+                maxDiff = diff
+        err = maxDiff
+        x0 = x1.copy()
+        if (nDigits >= 0) :
+            x0 = x0.round(nDigits)
+
+    return x0
+
 

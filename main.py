@@ -76,13 +76,17 @@ def solve(button) :
             app.setEntry('resultX' + str(i), str(result[i]));
             app.setEntryBg('resultX' + str(i), 'yellow')
     elif method == 'Jacobi' :
-        result = jacobi(matrix, res)
+        result = jacobi(matrix, np.array([0,0,0]), maxErr, res)
         #print(result)
         for i in range (0, n) :
             app.setEntry('resultX' + str(i), str(result[i]));
             app.setEntryBg('resultX' + str(i), 'yellow')
     elif method == 'Gauss-Seidel' :
-        app.infoBox("Gauss-Seidel", "Você clicou em Gauss-Seidel");
+        result = gaussSeidel(matrix, np.array([0,0,0]), maxErr, res)
+        #print(result)
+        for i in range (0, n) :
+            app.setEntry('resultX' + str(i), str(result[i]));
+            app.setEntryBg('resultX' + str(i), 'yellow')
 
 def generateMatrix() :  
     for i in range (0, nMax) :
@@ -166,7 +170,7 @@ app.startLabelFrame('Respostas', row=4, column=5, colspan=2)
 nMax = getParams()['nMax']
 for i in range (0, nMax) :
     app.addLabel('resultX' + str(i) + 'label', 'x' + str(i) + '= ', column=0, row=i);
-    app.addNumericEntry('resultX' + str(i), column=1, row=i)
+    app.addEntry('resultX' + str(i), column=1, row=i)
     app.setEntry('resultX' + str(i), '0')
 
 
