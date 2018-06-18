@@ -25,24 +25,7 @@ def leastSquares(xyarray: np.ndarray, pow, nDigits, plot=False) :
     coeficients = gaussEliminationPivot(matrix, nDigits)
 
     if (plot):
-        min = np.min(xyarray[0])
-        min = min - 0.1 * np.abs(min)
-
-        max = np.max(xyarray[0])
-        max = max + 0.1 * np.abs(max)
-
-        t = np.arange(min, max, 0.01)
-        s = np.zeros(t.shape)
-        for (i, tValue) in np.ndenumerate(t):
-            for j in range (0, pow) :
-                s[i] += coeficients[j] * (tValue ** j)
-
-        plt.plot(t, s, color='C2', label='Ajuste')
-        plt.scatter(x=xyarray[0], y=xyarray[1], color='C1', label='Pontos')
-        
-        plt.show()
-
-    
+        plotLeastSquares(xyarray, coeficients)  
 
     result = ''
     for i in range (0, pow) :
@@ -50,7 +33,26 @@ def leastSquares(xyarray: np.ndarray, pow, nDigits, plot=False) :
         if (i < pow-1) :
             result += ' + '
 
-    print(result)
+    return(result)
+
+def plotLeastSquares(points: np.ndarray, coeficients: np.ndarray) :
+    min = np.min(points[0])
+    min = min - 0.1 * np.abs(min)
+    max = np.max(points[0])
+    max = max + 0.1 * np.abs(max)
+
+    t = np.arange(min, max, 0.01)
+    s = np.zeros(t.shape)
+
+    pow = coeficients.shape[0]
+    for (i, tValue) in np.ndenumerate(t):
+        for j in range (0, pow) :
+            s[i] += coeficients[j] * (tValue ** j)
+    plt.plot(t, s, color='C2', label='Ajuste')
+    plt.scatter(x=points[0], y=points[1], color='C1', label='Pontos')
+    
+    plt.show()
+
         
 leastSquares(np.array([
     [1, 2, 3],
@@ -76,9 +78,28 @@ leastSquares(np.array([
 leastSquares(np.array([
     [-6,-5,-4,-3,-2,-1,0,1,2],
     [-2.30258509, -1.60943791, -1.2039728,  -0.91629073, -0.51082562,  0,  0.26236426,  1.09861229,  2.07944154]
-]), 1, 5, plot=True)
+]), 1, 5, plot=False)
 
-y = np.array([0.1,0.2,0.3,0.4,0.6,1,1.3,3,8])
+leastSquares(np.array([
+    [-6,-5,-4,-3,-2,-1,0,1,2],
+    [-2.30258509, -1.60943791, -1.2039728,  -0.91629073, -0.51082562, -0.10536052, 0.09531018,  1.09861229,  2.07944154]
+]), 1, 5, plot=False)
+
+y = np.array([0.1,0.2,0.3,0.4,0.6,0.9,1.1,3,8])
 #print(np.log(y))
 
-print(np.e**0.63863)
+#print(np.e**0.59371)
+
+leastSquares(np.array([
+    [-1.1, -0.7, -0.6, -0.4, -0.2, 0, 0.3, 0.4, 0.5, 0.8, 1.1],
+    [2.1, 1.2, 0.5, 0.32, 0.45, 0., 0.1, 0.5, 0.55, 1.4, 2.1]
+]), 2, 5, plot=False)
+
+print(leastSquares(np.array([
+    [4, 36, 68, 100, 132, 164, 196, 218],
+    [5.97177191, 5.08388576, 4.18205014, 3.28840189, 2.38876279, 1.51732262, 0.62057649, 0]
+]), 1, 5, plot=True))
+
+y = np.array([392.2, 161.4, 65.5, 26.8, 10.9, 4.56, 1.86, 1])
+#print(np.log(y))
+print(np.e ** 6.08176)
